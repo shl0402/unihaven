@@ -1,0 +1,2041 @@
+openapi: 3.0.3
+info:
+  title: UniHaven API
+  version: 1.0.0
+  description: "\n    API for managing student accommodations across universities.\n\
+    \    \n    Authentication:\n    - Use X-University-API-Key header with your university's\
+    \ API key\n    - Example: X-University-API-Key: hku-secret-key-2025\n    \n  \
+    \  Available API Keys for Testing:\n    - HKU: hku-secret-key-2025\n    - HKUST:\
+    \ hkust-secret-key-2025\n    - CUHK: cuhk-secret-key-2025\n    "
+paths:
+  /api/accommodations/:
+    get:
+      operationId: accommodations_list
+      tags:
+      - accommodations
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Accommodation'
+              examples:
+                ResponseExample:
+                  value:
+                  - id: 1
+                    building_name: Ocean Shores Tower 13
+                    type: Flat
+                    beds: 2
+                    bedrooms: 1
+                    price: '1500.00'
+                    floor_number: '13'
+                    flat_number: A
+                    room_number: '101'
+                    owner_name: John Doe
+                    owner_contact: '12345678'
+                    availability_start: '2025-06-01'
+                    availability_end: '2025-12-31'
+                    address: 123 Sample Street
+                    latitude: 22.123
+                    longitude: 114.123
+                    geo_address: Some Geo Address
+                    is_reserved: false
+                    average_rating: 4.5
+                    rating_count: 2
+                    university: HKU
+                  summary: Response Example
+          description: ''
+    post:
+      operationId: accommodations_create
+      tags:
+      - accommodations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccommodationRequest'
+            examples:
+              ValidAccommodationExample:
+                value:
+                  building_name: Ocean Shores Tower 13
+                  type: Flat
+                  beds: 2
+                  bedrooms: 1
+                  price: '1500.00'
+                  floor_number: '13'
+                  flat_number: A
+                  room_number: '101'
+                  owner_name: John Doe
+                  owner_contact: '12345678'
+                  availability_start: '2025-06-01'
+                  availability_end: '2025-12-31'
+                  address: 123 Sample Street
+                summary: Valid Accommodation Example
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AccommodationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AccommodationRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accommodation'
+              examples:
+                ResponseExample:
+                  value:
+                    id: 1
+                    building_name: Ocean Shores Tower 13
+                    type: Flat
+                    beds: 2
+                    bedrooms: 1
+                    price: '1500.00'
+                    floor_number: '13'
+                    flat_number: A
+                    room_number: '101'
+                    owner_name: John Doe
+                    owner_contact: '12345678'
+                    availability_start: '2025-06-01'
+                    availability_end: '2025-12-31'
+                    address: 123 Sample Street
+                    latitude: 22.123
+                    longitude: 114.123
+                    geo_address: Some Geo Address
+                    is_reserved: false
+                    average_rating: 4.5
+                    rating_count: 2
+                    university: HKU
+                  summary: Response Example
+          description: ''
+  /api/accommodations/{id}/:
+    get:
+      operationId: accommodations_retrieve
+      description: |-
+        API view to retrieve, update, or delete a single accommodation instance.
+        GET: Returns details of a specific accommodation by ID.
+        PUT/PATCH: Updates details of a specific accommodation.
+        DELETE: Deletes a specific accommodation.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - accommodations
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accommodation'
+              examples:
+                ResponseExample:
+                  value:
+                    id: 1
+                    building_name: Ocean Shores Tower 13
+                    type: Flat
+                    beds: 2
+                    bedrooms: 1
+                    price: '1500.00'
+                    floor_number: '13'
+                    flat_number: A
+                    room_number: '101'
+                    owner_name: John Doe
+                    owner_contact: '12345678'
+                    availability_start: '2025-06-01'
+                    availability_end: '2025-12-31'
+                    address: 123 Sample Street
+                    latitude: 22.123
+                    longitude: 114.123
+                    geo_address: Some Geo Address
+                    is_reserved: false
+                    average_rating: 4.5
+                    rating_count: 2
+                    university: HKU
+                  summary: Response Example
+          description: ''
+    put:
+      operationId: accommodations_update
+      description: |-
+        API view to retrieve, update, or delete a single accommodation instance.
+        GET: Returns details of a specific accommodation by ID.
+        PUT/PATCH: Updates details of a specific accommodation.
+        DELETE: Deletes a specific accommodation.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - accommodations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccommodationRequest'
+            examples:
+              ValidAccommodationExample:
+                value:
+                  building_name: Ocean Shores Tower 13
+                  type: Flat
+                  beds: 2
+                  bedrooms: 1
+                  price: '1500.00'
+                  floor_number: '13'
+                  flat_number: A
+                  room_number: '101'
+                  owner_name: John Doe
+                  owner_contact: '12345678'
+                  availability_start: '2025-06-01'
+                  availability_end: '2025-12-31'
+                  address: 123 Sample Street
+                summary: Valid Accommodation Example
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AccommodationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AccommodationRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accommodation'
+              examples:
+                ResponseExample:
+                  value:
+                    id: 1
+                    building_name: Ocean Shores Tower 13
+                    type: Flat
+                    beds: 2
+                    bedrooms: 1
+                    price: '1500.00'
+                    floor_number: '13'
+                    flat_number: A
+                    room_number: '101'
+                    owner_name: John Doe
+                    owner_contact: '12345678'
+                    availability_start: '2025-06-01'
+                    availability_end: '2025-12-31'
+                    address: 123 Sample Street
+                    latitude: 22.123
+                    longitude: 114.123
+                    geo_address: Some Geo Address
+                    is_reserved: false
+                    average_rating: 4.5
+                    rating_count: 2
+                    university: HKU
+                  summary: Response Example
+          description: ''
+    patch:
+      operationId: accommodations_partial_update
+      description: |-
+        API view to retrieve, update, or delete a single accommodation instance.
+        GET: Returns details of a specific accommodation by ID.
+        PUT/PATCH: Updates details of a specific accommodation.
+        DELETE: Deletes a specific accommodation.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - accommodations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAccommodationRequest'
+            examples:
+              ValidAccommodationExample:
+                value:
+                  building_name: Ocean Shores Tower 13
+                  type: Flat
+                  beds: 2
+                  bedrooms: 1
+                  price: '1500.00'
+                  floor_number: '13'
+                  flat_number: A
+                  room_number: '101'
+                  owner_name: John Doe
+                  owner_contact: '12345678'
+                  availability_start: '2025-06-01'
+                  availability_end: '2025-12-31'
+                  address: 123 Sample Street
+                summary: Valid Accommodation Example
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAccommodationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAccommodationRequest'
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Accommodation'
+              examples:
+                ResponseExample:
+                  value:
+                    id: 1
+                    building_name: Ocean Shores Tower 13
+                    type: Flat
+                    beds: 2
+                    bedrooms: 1
+                    price: '1500.00'
+                    floor_number: '13'
+                    flat_number: A
+                    room_number: '101'
+                    owner_name: John Doe
+                    owner_contact: '12345678'
+                    availability_start: '2025-06-01'
+                    availability_end: '2025-12-31'
+                    address: 123 Sample Street
+                    latitude: 22.123
+                    longitude: 114.123
+                    geo_address: Some Geo Address
+                    is_reserved: false
+                    average_rating: 4.5
+                    rating_count: 2
+                    university: HKU
+                  summary: Response Example
+          description: ''
+    delete:
+      operationId: accommodations_destroy
+      description: |-
+        API view to retrieve, update, or delete a single accommodation instance.
+        GET: Returns details of a specific accommodation by ID.
+        PUT/PATCH: Updates details of a specific accommodation.
+        DELETE: Deletes a specific accommodation.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - accommodations
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '204':
+          description: No response body
+  /api/accommodations/search/:
+    get:
+      operationId: accommodation_search
+      description: "\n    Search accommodations with optional filters:\n    - campus_id:\
+        \ Sort by distance from this campus\n    - max_price: Maximum monthly rent\
+        \ in HKD\n    - min_beds: Minimum number of beds required\n    - type: Type\
+        \ of accommodation (Room/Flat/Mini hall)\n    "
+      summary: Search accommodations
+      parameters:
+      - in: query
+        name: campus_id
+        schema:
+          type: integer
+        description: Filter and sort by distance from this campus
+        examples:
+          HKUMainCampus:
+            value: 11
+            summary: HKU Main Campus
+            description: Sort by distance from HKU main campus
+          TheChineseUniversityOfHongKongCampus:
+            value: 16
+            summary: The Chinese University of Hong Kong Campus
+            description: Sort by distance from The Chinese University of Hong Kong
+              Campus
+      - in: query
+        name: max_price
+        schema:
+          type: number
+          format: double
+        description: Maximum monthly rent in HKD
+        examples:
+          Budget:
+            value: 5000.0
+            description: Find accommodations under $5000/month
+      - in: query
+        name: min_beds
+        schema:
+          type: integer
+        description: Minimum number of beds required
+        examples:
+          DoubleRoom:
+            value: 2
+            summary: Double Room
+            description: Find accommodations with at least 2 beds
+      - in: query
+        name: type
+        schema:
+          type: string
+          enum:
+          - Flat
+          - Mini hall
+          - Room
+        description: Type of accommodation
+        examples:
+          FlatType:
+            value: Flat
+            summary: Flat Type
+            description: Search for flats only
+      tags:
+      - Search
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccommodationSearch'
+              examples:
+                SearchResultExample:
+                  value:
+                  - id: 1
+                    universities:
+                    - HKU
+                    - CUHK
+                    building_name: Ocean Shores
+                    type: Flat
+                    beds: 2
+                    bedrooms: 1
+                    price: '1500.00'
+                    latitude: 22.123
+                    longitude: 114.123
+                    address: 123 Sample Street
+                    distance: '1.5'
+                  summary: Search Result Example
+                SearchResults:
+                  value:
+                  - - id: 1
+                      university: HKU
+                      building_name: Ocean Shores
+                      type: Flat
+                      beds: 2
+                      bedrooms: 1
+                      price: '1500.00'
+                      latitude: 22.123
+                      longitude: 114.123
+                      address: 123 Sample Street
+                      distance: '1.5'
+                  summary: Search Results
+          description: List of accommodations matching the search criteria
+        '401':
+          description: Authentication failed
+  /api/campuses/:
+    get:
+      operationId: campuses_list
+      description: |-
+        API view to list all campuses or create a new one.
+        (Creation might be restricted to admin/staff later)
+      tags:
+      - campuses
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campus'
+          description: ''
+    post:
+      operationId: campuses_create
+      description: |-
+        API view to list all campuses or create a new one.
+        (Creation might be restricted to admin/staff later)
+      tags:
+      - campuses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CampusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CampusRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campus'
+          description: ''
+  /api/campuses/{id}/:
+    get:
+      operationId: campuses_retrieve
+      description: |-
+        API view to retrieve, update, or delete a single campus instance.
+        (Update/Delete might be restricted later)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - campuses
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campus'
+          description: ''
+    put:
+      operationId: campuses_update
+      description: |-
+        API view to retrieve, update, or delete a single campus instance.
+        (Update/Delete might be restricted later)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - campuses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CampusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CampusRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campus'
+          description: ''
+    patch:
+      operationId: campuses_partial_update
+      description: |-
+        API view to retrieve, update, or delete a single campus instance.
+        (Update/Delete might be restricted later)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - campuses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCampusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCampusRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCampusRequest'
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campus'
+          description: ''
+    delete:
+      operationId: campuses_destroy
+      description: |-
+        API view to retrieve, update, or delete a single campus instance.
+        (Update/Delete might be restricted later)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - campuses
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '204':
+          description: No response body
+  /api/ratings/:
+    get:
+      operationId: ratings_list
+      description: |-
+        API view to list ratings or create a new one.
+        Requires authentication.
+      tags:
+      - ratings
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating'
+          description: ''
+    post:
+      operationId: ratings_create
+      description: |-
+        API view to list ratings or create a new one.
+        Requires authentication.
+      tags:
+      - ratings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RatingRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RatingRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+          description: ''
+  /api/reservations/:
+    get:
+      operationId: reservations_list
+      tags:
+      - reservations
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+              examples:
+                ReservationResponse:
+                  value:
+                  - id: 1
+                    student:
+                      id: 1
+                      name: John Smith
+                      email: john.smith@connect.hku.hk
+                      contact: '98765432'
+                      campus: 1
+                      campus_name: HKU Main Campus
+                    accommodation: 1
+                    accommodation_str: Ocean Shores Tower 13 Floor 13 Flat A
+                    status: pending
+                    reservation_start: '2025-07-01'
+                    reservation_end: '2025-12-31'
+                    created_at: '2025-05-01T10:00:00Z'
+                    is_reserved: true
+                  summary: Reservation Response
+          description: ''
+    post:
+      operationId: reservations_create
+      tags:
+      - reservations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationRequest'
+            examples:
+              CreateReservationRequest(existingStudent):
+                value:
+                  student: 1
+                  accommodation: 1
+                  reservation_start: '2025-07-01'
+                  reservation_end: '2025-12-31'
+                  status: pending
+                  student_name_input: ''
+                  student_email: ''
+                  student_contact: ''
+                  student_campus: ''
+                summary: Create Reservation Request (existing student)
+              CreateReservationRequest(newStudent):
+                value:
+                  student: 9999
+                  student_name_input: Alice Example
+                  student_email: alice@example.com
+                  student_contact: '91234567'
+                  student_campus: 2
+                  accommodation: 1
+                  reservation_start: '2025-07-01'
+                  reservation_end: '2025-12-31'
+                  status: pending
+                summary: Create Reservation Request (new student)
+              PatchReservationDateRequest:
+                value:
+                  reservation_start: '2025-07-01'
+                  reservation_end: '2025-12-31'
+                summary: Patch Reservation date Request
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReservationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReservationRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+              examples:
+                ReservationResponse:
+                  value:
+                    id: 1
+                    student:
+                      id: 1
+                      name: John Smith
+                      email: john.smith@connect.hku.hk
+                      contact: '98765432'
+                      campus: 1
+                      campus_name: HKU Main Campus
+                    accommodation: 1
+                    accommodation_str: Ocean Shores Tower 13 Floor 13 Flat A
+                    status: pending
+                    reservation_start: '2025-07-01'
+                    reservation_end: '2025-12-31'
+                    created_at: '2025-05-01T10:00:00Z'
+                    is_reserved: true
+                  summary: Reservation Response
+          description: ''
+  /api/reservations/{id}/:
+    get:
+      operationId: reservations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - reservations
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+              examples:
+                ReservationResponse:
+                  value:
+                    id: 1
+                    student:
+                      id: 1
+                      name: John Smith
+                      email: john.smith@connect.hku.hk
+                      contact: '98765432'
+                      campus: 1
+                      campus_name: HKU Main Campus
+                    accommodation: 1
+                    accommodation_str: Ocean Shores Tower 13 Floor 13 Flat A
+                    status: pending
+                    reservation_start: '2025-07-01'
+                    reservation_end: '2025-12-31'
+                    created_at: '2025-05-01T10:00:00Z'
+                    is_reserved: true
+                  summary: Reservation Response
+          description: ''
+    patch:
+      operationId: reservations_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - reservations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReservationRequest'
+            examples:
+              CreateReservationRequest(existingStudent):
+                value:
+                  student: 1
+                  accommodation: 1
+                  reservation_start: '2025-07-01'
+                  reservation_end: '2025-12-31'
+                  status: pending
+                  student_name_input: ''
+                  student_email: ''
+                  student_contact: ''
+                  student_campus: ''
+                summary: Create Reservation Request (existing student)
+              CreateReservationRequest(newStudent):
+                value:
+                  student: 9999
+                  student_name_input: Alice Example
+                  student_email: alice@example.com
+                  student_contact: '91234567'
+                  student_campus: 2
+                  accommodation: 1
+                  reservation_start: '2025-07-01'
+                  reservation_end: '2025-12-31'
+                  status: pending
+                summary: Create Reservation Request (new student)
+              PatchReservationDateRequest:
+                value:
+                  reservation_start: '2025-07-01'
+                  reservation_end: '2025-12-31'
+                summary: Patch Reservation date Request
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReservationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReservationRequest'
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+              examples:
+                ReservationResponse:
+                  value:
+                    id: 1
+                    student:
+                      id: 1
+                      name: John Smith
+                      email: john.smith@connect.hku.hk
+                      contact: '98765432'
+                      campus: 1
+                      campus_name: HKU Main Campus
+                    accommodation: 1
+                    accommodation_str: Ocean Shores Tower 13 Floor 13 Flat A
+                    status: pending
+                    reservation_start: '2025-07-01'
+                    reservation_end: '2025-12-31'
+                    created_at: '2025-05-01T10:00:00Z'
+                    is_reserved: true
+                  summary: Reservation Response
+          description: ''
+    delete:
+      operationId: reservations_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - reservations
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '204':
+          description: No response body
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/specialists/:
+    get:
+      operationId: specialists_list
+      tags:
+      - specialists
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Specialist'
+          description: ''
+    post:
+      operationId: specialists_create
+      tags:
+      - specialists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpecialistRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpecialistRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpecialistRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialist'
+          description: ''
+  /api/specialists/{id}/:
+    get:
+      operationId: specialists_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - specialists
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialist'
+          description: ''
+    put:
+      operationId: specialists_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - specialists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpecialistRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SpecialistRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SpecialistRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialist'
+          description: ''
+    patch:
+      operationId: specialists_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - specialists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialistRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialistRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSpecialistRequest'
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialist'
+          description: ''
+    delete:
+      operationId: specialists_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - specialists
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '204':
+          description: No response body
+  /api/students/:
+    get:
+      operationId: students_list
+      tags:
+      - students
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+          description: ''
+    post:
+      operationId: students_create
+      tags:
+      - students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+  /api/students/{id}/:
+    get:
+      operationId: students_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - students
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+    put:
+      operationId: students_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StudentRequest'
+        required: true
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+    patch:
+      operationId: students_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - students
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedStudentRequest'
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+          description: ''
+    delete:
+      operationId: students_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - students
+      security:
+      - University-API-Key: []
+      - University-API-Key: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Accommodation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        universities:
+          type: array
+          items:
+            type: string
+        availability_start:
+          type: string
+          format: date
+        availability_end:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        beds:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        bedrooms:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        building_name:
+          type: string
+          maxLength: 255
+        latitude:
+          type: number
+          format: double
+          readOnly: true
+        longitude:
+          type: number
+          format: double
+          readOnly: true
+        address:
+          type: string
+        geo_address:
+          type: string
+          readOnly: true
+          nullable: true
+        room_number:
+          type: string
+          nullable: true
+          maxLength: 50
+        flat_number:
+          type: string
+          maxLength: 50
+        floor_number:
+          type: string
+          maxLength: 50
+        owner_name:
+          type: string
+          maxLength: 255
+        owner_contact:
+          type: string
+          maxLength: 50
+        is_reserved:
+          type: boolean
+          readOnly: true
+        average_rating:
+          type: number
+          format: double
+          readOnly: true
+        rating_count:
+          type: integer
+          readOnly: true
+      required:
+      - address
+      - availability_end
+      - availability_start
+      - average_rating
+      - bedrooms
+      - beds
+      - building_name
+      - flat_number
+      - floor_number
+      - geo_address
+      - id
+      - is_reserved
+      - latitude
+      - longitude
+      - owner_contact
+      - owner_name
+      - price
+      - rating_count
+      - type
+      - universities
+    AccommodationRequest:
+      type: object
+      properties:
+        universities:
+          type: array
+          items:
+            type: string
+            minLength: 1
+        availability_start:
+          type: string
+          format: date
+        availability_end:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        beds:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        bedrooms:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        building_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        address:
+          type: string
+          minLength: 1
+        room_number:
+          type: string
+          nullable: true
+          maxLength: 50
+        flat_number:
+          type: string
+          minLength: 1
+          maxLength: 50
+        floor_number:
+          type: string
+          minLength: 1
+          maxLength: 50
+        owner_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        owner_contact:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - address
+      - availability_end
+      - availability_start
+      - bedrooms
+      - beds
+      - building_name
+      - flat_number
+      - floor_number
+      - owner_contact
+      - owner_name
+      - price
+      - type
+      - universities
+    AccommodationSearch:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        universities:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        availability_start:
+          type: string
+          format: date
+        availability_end:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        beds:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        bedrooms:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        building_name:
+          type: string
+          maxLength: 255
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        address:
+          type: string
+        distance:
+          type: string
+          description: Distance from specified campus in kilometers
+          readOnly: true
+      required:
+      - address
+      - availability_end
+      - availability_start
+      - bedrooms
+      - beds
+      - building_name
+      - distance
+      - id
+      - latitude
+      - longitude
+      - price
+      - type
+      - universities
+    Campus:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        university:
+          $ref: '#/components/schemas/UniversityEnum'
+      required:
+      - id
+      - latitude
+      - longitude
+      - name
+      - university
+    CampusRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        university:
+          $ref: '#/components/schemas/UniversityEnum'
+      required:
+      - latitude
+      - longitude
+      - name
+      - university
+    PatchedAccommodationRequest:
+      type: object
+      properties:
+        universities:
+          type: array
+          items:
+            type: string
+            minLength: 1
+        availability_start:
+          type: string
+          format: date
+        availability_end:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        beds:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        bedrooms:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        building_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        address:
+          type: string
+          minLength: 1
+        room_number:
+          type: string
+          nullable: true
+          maxLength: 50
+        flat_number:
+          type: string
+          minLength: 1
+          maxLength: 50
+        floor_number:
+          type: string
+          minLength: 1
+          maxLength: 50
+        owner_name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        owner_contact:
+          type: string
+          minLength: 1
+          maxLength: 50
+    PatchedCampusRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        university:
+          $ref: '#/components/schemas/UniversityEnum'
+    PatchedReservationRequest:
+      type: object
+      properties:
+        student:
+          type: integer
+          writeOnly: true
+        student_name_input:
+          type: string
+          writeOnly: true
+        student_email:
+          type: string
+          format: email
+          writeOnly: true
+        student_contact:
+          type: string
+          writeOnly: true
+        student_campus:
+          type: integer
+          writeOnly: true
+          nullable: true
+        accommodation:
+          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        reservation_start:
+          type: string
+          format: date
+        reservation_end:
+          type: string
+          format: date
+    PatchedSpecialistRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        contact:
+          type: string
+          minLength: 1
+          maxLength: 50
+        campus:
+          type: integer
+    PatchedStudentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        contact:
+          type: string
+          nullable: true
+          maxLength: 50
+        campus:
+          type: integer
+    Rating:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        student_name:
+          type: string
+          readOnly: true
+        accommodation_str:
+          type: string
+          readOnly: true
+        rating:
+          type: integer
+          maximum: 5
+          minimum: 0
+        comment:
+          type: string
+          nullable: true
+        date:
+          type: string
+          format: date-time
+          readOnly: true
+        student:
+          type: integer
+        accommodation:
+          type: integer
+      required:
+      - accommodation
+      - accommodation_str
+      - date
+      - id
+      - rating
+      - student
+      - student_name
+    RatingRequest:
+      type: object
+      properties:
+        rating:
+          type: integer
+          maximum: 5
+          minimum: 0
+        comment:
+          type: string
+          nullable: true
+        student:
+          type: integer
+        accommodation:
+          type: integer
+      required:
+      - accommodation
+      - rating
+      - student
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        student_obj:
+          allOf:
+          - $ref: '#/components/schemas/Student'
+          readOnly: true
+        student_name:
+          type: string
+          readOnly: true
+          description: Name of the student making the reservation
+        accommodation:
+          type: integer
+        accommodation_str:
+          type: string
+          readOnly: true
+          description: String representation of the accommodation
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        reservation_start:
+          type: string
+          format: date
+        reservation_end:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        is_reserved:
+          type: boolean
+          readOnly: true
+          description: Current reservation status of the accommodation
+      required:
+      - accommodation
+      - accommodation_str
+      - created_at
+      - id
+      - is_reserved
+      - reservation_end
+      - reservation_start
+      - student_name
+      - student_obj
+    ReservationRequest:
+      type: object
+      properties:
+        student:
+          type: integer
+          writeOnly: true
+        student_name_input:
+          type: string
+          writeOnly: true
+        student_email:
+          type: string
+          format: email
+          writeOnly: true
+        student_contact:
+          type: string
+          writeOnly: true
+        student_campus:
+          type: integer
+          writeOnly: true
+          nullable: true
+        accommodation:
+          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        reservation_start:
+          type: string
+          format: date
+        reservation_end:
+          type: string
+          format: date
+      required:
+      - accommodation
+      - reservation_end
+      - reservation_start
+      - student
+    Specialist:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        contact:
+          type: string
+          maxLength: 50
+        campus:
+          type: integer
+        campus_name:
+          type: string
+          readOnly: true
+      required:
+      - campus
+      - campus_name
+      - contact
+      - email
+      - id
+      - name
+    SpecialistRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        contact:
+          type: string
+          minLength: 1
+          maxLength: 50
+        campus:
+          type: integer
+      required:
+      - campus
+      - contact
+      - email
+      - name
+    StatusEnum:
+      enum:
+      - pending
+      - confirmed
+      - canceled
+      - contract_not_signed
+      type: string
+      description: |-
+        * `pending` - Pending
+        * `confirmed` - Confirmed
+        * `canceled` - Canceled
+        * `contract_not_signed` - Contract Not Signed
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        contact:
+          type: string
+          nullable: true
+          maxLength: 50
+        campus:
+          type: integer
+        campus_name:
+          type: string
+          readOnly: true
+      required:
+      - campus
+      - campus_name
+      - email
+      - id
+      - name
+    StudentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          minLength: 1
+          maxLength: 254
+        contact:
+          type: string
+          nullable: true
+          maxLength: 50
+        campus:
+          type: integer
+      required:
+      - campus
+      - email
+      - name
+    TypeEnum:
+      enum:
+      - Room
+      - Flat
+      - Mini hall
+      type: string
+      description: |-
+        * `Room` - Room
+        * `Flat` - Flat
+        * `Mini hall` - Mini hall
+    UniversityEnum:
+      enum:
+      - HKU
+      - HKUST
+      - CUHK
+      type: string
+      description: |-
+        * `HKU` - HKU
+        * `HKUST` - HKUST
+        * `CUHK` - CUHK
+  securitySchemes:
+    University-API-Key:
+      type: apiKey
+      in: header
+      name: X-University-API-Key
+      description: University API key for authentication
+tags:
+- name: Search
+  description: Search functionality for accommodations
+- name: Accommodations
+  description: Accommodation management endpoints
+- name: Students
+  description: Student registration and management
+- name: Specialists
+  description: Accommodation specialist management
+- name: Reservations
+  description: Manage accommodation reservations
+- name: Ratings
+  description: Rate and review accommodations
